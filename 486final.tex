@@ -31,7 +31,7 @@
 
 \newcommand\BibTeX{B{\sc ib}\TeX}
 
-\title{An Information Retrieval Approach to Education Systems}
+\title{A Scalable Augmentation of the Education Process}
 
 \author{Bhairav Mehta \\
   University of Michigan \\
@@ -45,18 +45,26 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  This paper describes a system designed to enhance a student’s educational experience. By harnessing the resources available through online resources, combined with modern information retrieval techniques, we have built a novel system that gives the student access to a question-answer system to be utilized as a study aide. The question-answer system then provides the user with additional feedback such that specific weaknesses can be targeted and the student is informed of specific topics related to their weaknesses. 
+  Despite all progress in machine learning and artificial intelligence, one of the slowest-adapting fields has been education. While massive progress has been made in expanding the accessibility to education through mediums such as MOOCs, these classrooms, albeit online, are still structured in the same format: lectures, written assignments, and grades. This paper starts from well-established hypotheses about effective student learning within the educational psychology community, and focuses in on the benefits of knowledge vocalizalization \cite{TODO}, parallel learning \cite{TODO}, and immediate feedback \cite{TODO}. We describe a novel intelligent tutoring system, which replicates many of the benefits cited in these hypotheses and provides a pipeline that allows our method to scale easily in terms of both class size and number of subjects. By harnessing free, online resources, combined with modern information retrieval and machine learning techniques, our system can be personalized towards any classroom. We provide full transparency to administrators and teachers, and allow them to have the final say in any decision made by the machine learning algorithms. Our initial experiments and pilot programs show promising results, and cement our hypothesis that our system is flexible enough to serve across a wide spectrum of purposes in a classroom setting.
 \end{abstract}
 
 \section{Introduction}
 
-Traditionally, education has always been a sequential process. Students learn algebra, geometry, and then calculus, and for some subjects, sequential learning offers a easy way to lay a natural foundation for future topics of study. Yet, in some cases, parallel learning of auxiliary yet related topics can help a student get through tough concepts. By providing a wider view of the topic in question, students gain more context, and can overcome mental roadblocks by bypassing them through temporarily focusing on other topics.
+Education has always been a sequential process. Students learn algebra, geometry, and then calculus, and for some subjects, sequential learning offers a easy way to lay a natural foundation for future topics of study. Yet, in many cases, parallel learning of auxiliary yet related topics can help a student get through tough concepts \cite{TODO}. By providing a wider view of the topic in question, students gain more context, and can overcome mental roadblocks by bypassing them through temporarily focusing on other topics. Studying parallel areas can increase knowledge retention in the main focus, which has shown to be effective in not only humans \cite{TODO}, but has also inspired similar research geared towards artificial agents \cite{TODO}.
 
-Further, education studies show that immediate feedback can help increase knowledge retention \cite{samuels_wu}. When compared to traditional delayed feedback methods such as grades on tests and quizzes, immediate feedback has been shown to improve understanding and comprehension. Both parallel learning and immediate feedback in education have empirically shown to increase the value of time spent in the classroom, but are idealistic by nature. Education is a one-size-fits-all system, and today’s teachers often don’t have the time to give each student the personalized attention needed to reinforce topics that the student is fundamentally weak on. 
+Even with parallel learning, the efficacy of learning depends highly on the study methods employed. Research on popular studying methods \cite{TODO} show that while highest in popularity, rote memorization and flashcards are among the worst performing in terms of efficiency. Methods that engage multiple sensory pipelines, such as those that require or return visual or audial information, are among the best performing. In particular, getting students to speak about what they know, and what they don't, can be shown to improve performance over long periods of time \cite{TODO}, especially when paired with getting feedback on what the student is saying. Yet, while rapid advances have been made in artificial speech systems \cite{TODO: Both Transcribing and Understanding}, much of the work has stayed in the realm of personal assistants such as Google Home and Siri.  
 
-We develop the framework that takes initial steps in providing a solution to both the parallel learning and immediate feedback issues needed to increase the efficiency of our educational institutions. We present a system that extracts the key concepts from bodies of raw text and internet sources, and use these key phrases as a proxy for the knowledge a student hopes to gain from the particular group of sources. When presented with an answer, our system uses knowledge graphs to deduce what concepts the student is struggling with, and offers recommendations of other topics to study in parallel in order to improve knowledge retention of the main task. We stay true to the unofficial education-technology motto of minimizing teacher investment while maximizing student impact, and we conclude by offering future ideas on implementations and improvements of this system.
+Yet, education studies show that immediate feedback can help increase knowledge retention \cite{samuels_wu}. When compared to traditional delayed feedback methods such as grades on tests and quizzes, immediate feedback has been shown to improve understanding and comprehension. Both parallel learning and immediate feedback in education have empirically shown to increase the value of time spent in the classroom, but are idealistic by nature. Traditionally, education is more efficient as a one-size-fits-all system, but as a result doesn't scale to operate at the granularity of individual students. 
+
+We can see this embodiment of parallel learning, vocalization, and immediate feedback, as well as their effects, in student tutors. Tutors in primary schools and universities are often top students in their classes to begin with \cite{TODO}, but can later on outperform their peers from the same performance group \cite{TODO}. Our hypothesis is that by learning tricks to explain tough concepts to other students (i.e through analogies), as well as constantly talking about the topic and getting feedback from their students, allows them to better solidify their own understanding of the concepts, and therefore drives them to true mastery rather than just good grades. 
+
+We develop the framework that takes initial steps in providing a solution to these issues that hinder the efficiency of our educational institutions. We present a system that extracts the key concepts from bodies of expert-curated raw text and internet sources, and use these key phrases as a proxy for the knowledge a student hopes to gain from the particular group of sources. When presented with an answer, our system uses an internal similarity metric to deduce what concepts the student is struggling with, and offers recommendations of other topics within that class to study in parallel in order to improve knowledge retention of the main task. We stay true to the unofficial education-technology motto of minimizing teacher investment while maximizing student impact, and we conclude by offering future ideas on implementations and improvements of this system.
 
 \section{Related Work}
+% 
+% Intelligent Tutoring Systems = 1 paragraph
+% NER / RE / NLU = 2 sentences
+
 Natural Language Understanding, a subset of Natural Language Processing, involves training computers to understand unstructured text. While Natural Language Understanding is considered an AI-Hard problem, a more accessible subset of this area is concerned with Information Extraction, or the task of retrieving structured information from unstructured data sources, such as raw text, images, or even video. Structured information, especially in a text-based setting, is often represented in the form entities and relationships. 
 
 Named Entity Recognition (NER) is a subset of information extraction and involves locating and classifying named entities in text into pre-defined categories such as the names of persons, organizations, locations, etc. Today’s NER systems achieve near-human performance on popular datasets \cite{M98-1002}, but are often brittle and susceptible to the domain-transfer problem \cite{Poibeau01propername}. This puts an onus on the researcher to provide the model with a labelled, relevant dataset, and currently, even with the state-of-the-art Conditional Random Fields models \cite{Finkel:2005:INI:1219840.1219885}, the domain transfer issue remains unsolved. In our work, we deal with examples for which we have related, labelled datasets. Therefore, while new work in neural NER and semi-supervised methods \cite{Turian:2010:WRS:1858681.1858721} \cite{Lin:2009:PCD:1690219.1690290} has shown promise in removing the prerequisite for a relevant, labeled dataset, we show promising results with more traditional models.
@@ -69,7 +77,7 @@ Education technology is defined as the "the study and ethical practice of facili
 The system is constructed using five key steps. In order, the steps are as following: Raw Text Extraction, Named Entity Recognition, Topic Scoring / Ranking, Questioning / Answering, and Knowledge Graph Querying. 
 
 \subsection{Datasets}
-
+% Turn Datasets + Raw Text + GMB = 2 sentences
 Data was pulled and annotated from two main sources. Raw text was acquired by scraping Wikipedia using a seedlist of topics. Additionally, data used to train the Named Entity Recognition model was pulled using an annotated version of Groningen Meaning Bank. 
 
 \subsubsection{Raw Text}\label{data_raw_text}
@@ -101,7 +109,7 @@ And the parameter vector, where the two parameter terms (which helps alleviate c
 $$\frac{\lambda_2}{2} ||w||^2_2$$ $$\lambda_1||w||_1$$
 
 The parameter vector is estimated as:
-% $$w^* = \arg\max_{w\in \mathbb{R}^d}L(w)$$
+$$w^* = \arg\max_{w\in \mathbb{R}^d}L(w)$$
 
 Based on training, and cross validation tests, we chose to modify the L1 Hyperparameter by increasing the value. This helped the model further focus on context rather than pure memorization and led to better empirical results. Once the model has been trained, we dump the model into a pickle file. The pickle file serves as a saved, binary export of the model such that we can later access the model to make predictions rather than retraining the model at each occurrence. 
 
@@ -117,7 +125,12 @@ The system prompts the user for a question title (which will be shown to the stu
 
 $$score_q(w) = tfidf(w) + a*SI(w) + b*NE(w)$$
 
-where $SI(w)$, short for semantic importance, is a multiplier if the particular word was in a section heading in the original HTML and a constant if from raw text, $NE(w)$ is a multiplier if the word is present in any of the named entities extracted from the text using the NER model, and $a$ and $b$ are empirically defined hyperparameters. If the word comes from raw text inputted by the user, $SI(w)>1$, using the assumption that the user would have only inserted that text excerpt if it was actually relevant, whereas websites can contain lots of incorrect information. In addition, if the word is found inside of a named entity, we replace the word with the named entity itself. We then associate a thresholded list of \texttt{\{word: score\}} pairs to the question, which serve as the “key concepts” associated with the question. In a deployed version of the system, we envision the sorted \texttt{\{word: score\}} pairs to be returned to the user, and tweaked as necessary using expert knowledge.
+where $SI(w)$, short for semantic importance, is a multiplier if the particular word was in a section heading in the original HTML and a constant if from raw text, $NE(w)$ is a multiplier if the word is present in any of the named entities extracted from the text using the NER model, and $a$ and $b$ are empirically defined hyperparameters. If the word comes from raw text inputted by the user, $SI(w)>1$, using the assumption that the user would have only inserted that text excerpt if it was actually relevant, whereas websites can contain lots of incorrect information. In addition, if the word is found inside of a named entity, we replace the word with the named entity itself. We then associate a thresholded list of \texttt{\{word: score\}} pairs to the question, which serve as the “key concepts” associated with the question. 
+
+\subsubsection{Teacher-in-the-Loop}
+In a deployed version of the system, we envision the sorted \texttt{\{word: score\}} pairs to be returned to the user, and tweaked as necessary using expert knowledge.
+
+
 \subsubsection{Question and Answer System}
 At this point, the system would be turned to the user, and the question inputted by the teacher would be posed to the student. In this preliminary work, we take a naive approach to the student scoring problem, awarding points to the student by the following criteria:
 
@@ -140,13 +153,14 @@ The knowledge graph is utilized in the project in an effort to take advantage of
 % TODO 
 
 
-\subsection{Examples}
+\subsection{Use Cases}
+% Also talk about range of spectrum -- gives the teacher back time!
 The use case we envision for our project is a student begins interaction with the system. At this point, the system asks the user a question such as “Tell me about how World War II began?”. The student then responds to this query by dictating all of the different pieces of information that they believe is relevant to answering this question. The system compares this information provided by the user against an internal scored, ranked list of terms relevant to the answer to the original question. Any terms that are ranked by the system, but missed by the student are then returned to the user as topics worth studying further. Additionally, the missed topics are input into a  knowledge graph query such that topics related to the missed piece of information are also provided to the student.
 
 In this way, our system targets specific weaknesses within a students domain knowledge of a subject. The system itself can be constructed for specific classroom curriculums, and provides an extension of the teacher to the student that allows the student to study more effectively when outside of the classroom itself.  
 
 \section{Experiments}
-
+%  Need NER Validation, User Study for Extracted Topics Relevance, User Study for Related Topics 
 To evaluate results we performed 5-Folds Cross Validation to understand performance of our conditional random field model, utilized for named entity prediction. Additionally, to evaluate the system as a whole, which heavily depends on relevance feedback and a question answering system, we constructed an experiment in the form of a user study to understand the effectiveness of the system in serving as a study aid to students. 
 
 The 5 folds cross validation involves multiple rounds of random partitioning. Each round of partitioning involves separation into one training partition and one validation partition. The model is constructed using the training partition and tested using the validation partition. This process is repeated for each round and the results are averaged together. The randomness of the construction by design helps alleviate worries in the form of overfitting or underfitting. The model itself performed relatively well in cross validation testing. Certain key takeaways are still found however. Primarily, the data appears to be significantly dependent on the number of samples for each named entity type. Additionally, the system struggles with recall while performing relatively well in terms of precision.
@@ -178,7 +192,7 @@ In the user study, whose results can be seen in Appendix A, it can be seen that 
 
 \section{Conclusion and Future Work}
 
-We present an alternative education solution through the use of modern information retrieval and machine learning techniques as described above. By harnessing the depth and breadth of resources available online, in combination with methodology that helps establish adjacent learning with immediate feedback, proven solutions to educational problems are being implemented. While the system as it stands provides the foundation for a framework focused on this education pipeline, glaring possibilities for improvement still exist. For example, related topics as related from the knowledge graph are not always intuitive or useful. Additionally, it can be argued that rather than providing the user with immediate feedback in the form of suggested adjacent topics, it may be more useful to use the adjacent topics to find another parallel question. In other words, rather than providing the user with the obvious response, position the user to continue their studying process in the form of a related question. This in turn would improve user engagement, and help the user organically relate topics themselves rather than being explicitly told of the relation.
+We present an alternative education solution through the use of modern information retrieval and machine learning techniques as described above. Our system can scale easily to many classes and to unlimited numbers of students By harnessing the depth and breadth of resources available online, in combination with methodology that helps establish adjacent learning with immediate feedback, proven solutions to educational problems are being implemented. While the system as it stands provides the foundation for a framework focused on this education pipeline, glaring possibilities for improvement still exist. For example, related topics as returned by our internal similarity metric are not always intuitive or useful. Future work could also explore
 
 \bibliography{naaclhlt2018}
 \bibliographystyle{acl_natbib}
@@ -211,9 +225,4 @@ In Table \ref{user-table}, we see the relevance ranking of the topics returned b
 \end{tabular}
 \caption{\label{user-table} Questions Asked During User Study}
 \end{table}
-
-\section{Contributions}
-Adithya Ramanathan worked on Training CRF Models and the Knowledge Graph. Bhairav Mehta worked on TfIDF Indexing, Web Crawling, Ranking and Scoring. Ben Cotsarelis worked on Training CRF Models and the Knowledge Graph. Akash Kumar worked on TfIDF Indexing, Web Crawling, Ranking and Scoring.
-
-%add what info gets returned, length of docs, top 5 words + scores, 
 \end{document}
